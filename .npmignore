@@ -1,0 +1,8 @@
+.idea
+node_modules
+src
+example
+.eslintrc
+.prettierrc.json
+tsconfig.json
+yarn.lock
