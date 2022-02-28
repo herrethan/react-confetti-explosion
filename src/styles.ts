@@ -32,10 +32,13 @@ const rotationKeyframes = rotationTransforms.reduce((acc, xyz, i) => {
   return {
     ...acc,
     [`@keyframes rotation-${i}`]: {
-      to: {
-        transform: `rotate3d(${xyz.join()}, 360deg)`,
+      '50%': {
+        transform: `rotate3d(${xyz.map(v => v / 2).join()}, 180deg)`
       },
-    },
+      '100%': {
+        transform: `rotate3d(${xyz.join()}, 360deg)`
+      }
+    }
   };
 }, {});
 
@@ -46,24 +49,24 @@ const confettiKeyframes = (degrees: number[], floorHeight: number, floorWidth: n
       ...acc,
       [`@keyframes x-axis-${i}`]: {
         to: {
-          transform: `translateX(${landingPoint}px)`,
-        },
-      },
+          transform: `translateX(${landingPoint}px)`
+        }
+      }
     };
   }, {});
 
   return {
     '@keyframes y-axis': {
       to: {
-        transform: `translateY(${floorHeight}px)`,
-      },
+        transform: `translateY(${floorHeight}px)`
+      }
     },
-    ...xLandingPoints,
+    ...xLandingPoints
   };
 };
 
 const confettoStyle = (particle: IParticle, duration: number, force: number, size: number, i: number) => {
-  const rotation = Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN;
+  const rotation = Math.round(Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN);
   const rotationIndex = Math.round(Math.random() * (rotationTransforms.length - 1));
   const durationChaos = duration - Math.round(Math.random() * 1000);
   const shouldBeCrazy = Math.random() < CRAZY_PARTICLES_FREQUENCY;
@@ -95,21 +98,14 @@ const confettoStyle = (particle: IParticle, duration: number, force: number, siz
         '&:after': {
           backgroundColor: particle.color,
           animation: `$rotation-${rotationIndex} ${rotation}ms infinite linear`,
-          ...(isCircle ? { borderRadius: '50%' } : {}),
-        },
-      },
-    },
+          ...(isCircle ? { borderRadius: '50%' } : {})
+        }
+      }
+    }
   };
 };
 
-const useStyles = ({
-  particles,
-  duration,
-  floorHeight,
-  floorWidth,
-  force,
-  particleSize
-}: IParticlesProps) =>
+const useStyles = ({ particles, duration, floorHeight, floorWidth, force, particleSize }: IParticlesProps) =>
   makeStyles(
     () => {
       const confettiStyles = particles.reduce(
@@ -119,13 +115,17 @@ const useStyles = ({
 
       return {
         ...rotationKeyframes,
-        ...confettiKeyframes(particles.map(particle => particle.degree), floorHeight, floorWidth),
+        ...confettiKeyframes(
+          particles.map(particle => particle.degree),
+          floorHeight,
+          floorWidth
+        ),
         container: {
           width: 0,
           height: 0,
           position: 'relative',
           overflow: 'visible',
-          zIndex: 1200,
+          zIndex: 1200
         },
         particle: {
           ...confettiStyles,
@@ -137,10 +137,10 @@ const useStyles = ({
               content: `''`,
               display: 'block',
               width: '100%',
-              height: '100%',
-            },
-          },
-        },
+              height: '100%'
+            }
+          }
+        }
       };
     },
     { name: 'ConfettiExplosion' }
