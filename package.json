@@ -1,6 +1,6 @@
 {
-  "name": "@reonomy/react-confetti-explosion",
-  "version": "1.0.3",
+  "name": "react-confetti-explosion",
+  "version": "1.5.0",
   "description": "A lightweight css-animation based confetti exploder for React",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reonomy/react-confetti-explosion.git"
+    "url": "git+https://github.com/herrethan/react-confetti-explosion"
   },
   "keywords": [
     "confetti",
@@ -29,23 +29,24 @@
     "css",
     "animation",
     "react",
-    "styles",
-    "reonomy"
+    "styles"
   ],
-  "author": "Reonomy",
+  "author": "Ethan Herr",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/reonomy/react-confetti-explosion/issues"
+    "url": "https://github.com/herrethan/react-confetti-explosion/issues"
   },
-  "homepage": "https://github.com/reonomy/react-confetti-explosion#readme",
+  "homepage": "https://github.com/herrethan/react-confetti-explosion#readme",
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
   "dependencies": {
-    "react": "^17.0.1",
-    "lodash": "^4.17.21",
-    "@material-ui/styles": "^4.11.3"
+    "@material-ui/styles": "^4.11.5",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@types/react": "^17.0.3",
     "@types/lodash": "^4.14.168",
+    "@types/react": "^18.0.17",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
     "eslint": "^6.0.1",
