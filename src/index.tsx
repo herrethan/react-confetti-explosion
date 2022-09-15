@@ -9,12 +9,7 @@ const FLOOR_HEIGHT = 800; // pixels the particles will fall from initial explosi
 const FLOOR_WIDTH = 1600; // horizontal spread of particles in pixels
 const PARTICLE_COUNT = 150;
 const DURATION = 3500;
-const COLORS = [
-  '#FFC700',
-  '#FF0000',
-  '#2E3191',
-  '#41BBC7'
-];
+const COLORS = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'];
 
 interface IConfetti {
   particleCount?: number;
@@ -22,6 +17,9 @@ interface IConfetti {
   colors?: string[];
   particleSize?: number;
   force?: number;
+  height?: number;
+  width?: number;
+  // floorHeight and floorWidth are only for backwards compatibility
   floorHeight?: number;
   floorWidth?: number;
 }
@@ -30,7 +28,7 @@ const createParticles = (count: number, colors: string[]): IParticle[] => {
   const increment = 360 / count;
   return range(count).map(index => ({
     color: colors[index % colors.length],
-    degree: increment * index,
+    degree: increment * index
   }));
 };
 
@@ -40,11 +38,20 @@ function ConfettiExplosion({
   colors = COLORS,
   particleSize = SIZE,
   force = FORCE,
-  floorHeight = FLOOR_HEIGHT,
-  floorWidth = FLOOR_WIDTH
+  height = FLOOR_HEIGHT,
+  width = FLOOR_WIDTH,
+  floorHeight,
+  floorWidth
 }: IConfetti) {
   const particles = createParticles(particleCount, colors);
-  const classes: IStyleClasses = useStyles({ particles, duration, particleSize, force, floorWidth, floorHeight })();
+  const classes: IStyleClasses = useStyles({
+    particles,
+    duration,
+    particleSize,
+    force,
+    width: floorWidth || width,
+    height: floorHeight || height
+  })();
 
   return (
     <div className={classes.container}>

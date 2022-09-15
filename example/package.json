@@ -10,15 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "react-confetti-explosion": "../react-confetti-explosion-1.5.0.tgz",
+    "react": "^18.x",
+    "react-dom": "^18.x"
+  },
+  "devDependencies": {
     "@babel/cli": "^7.13.10",
     "@babel/core": "^7.13.10",
     "@babel/preset-react": "^7.12.13",
     "babel-loader": "^8.2.2",
-    "@reonomy/react-confetti-explosion": "../reonomy-react-confetti-explosion-1.0.2.tgz",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
-  },
-  "devDependencies": {
     "css-loader": "^5.0.0",
     "path": "^0.12.7",
     "webpack": "^5.3.1",
