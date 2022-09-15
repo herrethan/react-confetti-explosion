@@ -37,7 +37,7 @@ Although the duration of the explosion is controlled, it is up to the consumer h
 
 ## Potential gotchas
 
-- Your container must be `overflow: visible` in order to allow elements to fully spread across area.
+- Your container must be full 100% width/height for all particles to be seen, but `overflow: hidden` to avoid having particles create scrollbars.
 - If your `height` is too small, particles may visibly land on the floor instead of disappearing off-screen.
 
 To keep the library as little as possible much of the physics have been estimated, cheapened, and downright mutilated. There are certainly prop combinations that will not look realistic, due to the limitations of CSS animations. But there should be enough options to fit most needs.
