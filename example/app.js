@@ -40,24 +40,24 @@ const bigExplodeProps = {
   force: 0.6,
   duration: 5000,
   particleCount: 200,
-  floorHeight: 1600,
-  floorWidth: 1600
+  height: 1600,
+  width: 1600
 };
 
 const littleExplodeProps = {
   force: 0.4,
   duration: 3000,
   particleCount: 60,
-  floorHeight: 1000,
-  floorWidth: 1000
+  height: 1000,
+  width: 1000
 };
 
 const tinyExplodeProps = {
   force: 0.4,
   duration: 2000,
   particleCount: 30,
-  floorHeight: 500,
-  floorWidth: 300
+  height: 500,
+  width: 300
 };
 
 function Button() {
