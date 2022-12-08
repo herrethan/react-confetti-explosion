@@ -1,5 +1,5 @@
-var webpack = require('webpack');
 var path = require('path');
+
 module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, 'app'),
@@ -7,9 +7,6 @@ module.exports = {
     path: __dirname + '/dist',
     publicPath: '/',
     filename: 'bundle.js'
-  },
-  devServer: {
-    contentBase: path.resolve(__dirname, 'public')
   },
   module: {
     rules: [
