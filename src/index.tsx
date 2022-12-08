@@ -1,7 +1,7 @@
 import * as React from 'react';
-import range from 'lodash/range';
+import range from 'lodash.range';
 
-import useStyles, { IParticle, IStyleClasses } from './styles';
+import useStyles, { IParticle } from './styles';
 
 const FORCE = 0.5; // 0-1 roughly the vertical force at which particles initially explode
 const SIZE = 12; // max height for particle rectangles, diameter for particle circles
@@ -44,7 +44,7 @@ function ConfettiExplosion({
   floorWidth
 }: IConfetti) {
   const particles = createParticles(particleCount, colors);
-  const classes: IStyleClasses = useStyles({
+  const { classes } = useStyles({
     particles,
     duration,
     particleSize,
