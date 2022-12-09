@@ -1,6 +1,6 @@
 import { keyframes } from 'tss-react';
 import { Keyframes } from '@emotion/serialize';
-import {  createMakeStyles } from 'tss-react';
+import { createMakeStyles } from 'tss-react';
 import round from 'lodash.round';
 
 import { coinFlip, mapRange, rotate, rotationTransforms, shouldBeCircle } from './utils';
@@ -38,7 +38,7 @@ const rotationKeyframes = rotationTransforms.reduce((acc, xyz, i) => {
 
   return {
     ...acc,
-    [`rotateKeyframe-${i}`]: rotateKeyframe
+    [`rotateKeyframe-${i}`]: rotateKeyframe,
   };
 }, {} as Record<string, Keyframes>);
 
@@ -51,7 +51,7 @@ const confettiKeyframes = (degrees: number[], height: number, width: number) => 
         }`;
     return {
       ...acc,
-      [`xAxisIndexKeyframe-${i}`]: xAxisIndexKeyframe
+      [`xAxisIndexKeyframe-${i}`]: xAxisIndexKeyframe,
     };
   }, {} as Record<string, Keyframes>);
   const yAxisKeyframes = keyframes`
@@ -61,11 +61,18 @@ const confettiKeyframes = (degrees: number[], height: number, width: number) => 
 
   return {
     yAxisKeyframes,
-    ...xLandingPoints
+    ...xLandingPoints,
   };
 };
 
-const confettoStyle = (particle: IParticle, duration: number, force: number, size: number, i: number, confettiKeyframesResult: Record<string, Keyframes>) => {
+const confettoStyle = (
+  particle: IParticle,
+  duration: number,
+  force: number,
+  size: number,
+  i: number,
+  confettiKeyframesResult: Record<string, Keyframes>
+) => {
   const rotation = Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN;
   const rotationIndex = Math.round(Math.random() * (rotationTransforms.length - 1));
   const durationChaos = duration - Math.round(Math.random() * 1000);
@@ -100,28 +107,28 @@ const confettoStyle = (particle: IParticle, duration: number, force: number, siz
         '&:after': {
           backgroundColor: particle.color,
           animation: `${rotationKeyframes[`rotateKeyframe-${rotationIndex}`]} ${rotation}ms infinite linear`,
-          ...(isCircle ? { borderRadius: '50%' } : {})
-        }
-      }
-    }
+          ...(isCircle ? { borderRadius: '50%' } : {}),
+        },
+      },
+    },
   };
 };
 
- const { makeStyles } = createMakeStyles({
-  useTheme: () => {}
+const { makeStyles } = createMakeStyles({
+  useTheme: () => {},
 });
 
 const useStyles = ({ particles, duration, height, width, force, particleSize }: IParticlesProps) =>
   makeStyles<void, keyof IStyleClasses>({ name: 'ConfettiExplosion' })((theme, _params, classes) => {
     const confettiKeyframesResult = confettiKeyframes(
-      particles.map(particle => particle.degree),
+      particles.map((particle) => particle.degree),
       height,
       width
     );
     const confettiStyles = particles.reduce(
       (acc, particle, i) => ({
         ...acc,
-        ...confettoStyle(particle, duration, force, particleSize, i, confettiKeyframesResult)
+        ...confettoStyle(particle, duration, force, particleSize, i, confettiKeyframesResult),
       }),
       {}
     );
@@ -132,7 +139,7 @@ const useStyles = ({ particles, duration, height, width, force, particleSize }: 
         height: 0,
         position: 'relative',
         overflow: 'visible',
-        zIndex: 1200
+        zIndex: 1200,
       },
       particle: {
         ...confettiStyles,
@@ -144,10 +151,10 @@ const useStyles = ({ particles, duration, height, width, force, particleSize }: 
             content: `''`,
             display: 'block',
             width: '100%',
-            height: '100%'
-          }
-        }
-      }
+            height: '100%',
+          },
+        },
+      },
     };
   });
 

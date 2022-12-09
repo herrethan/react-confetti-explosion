@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "react": "^18.x",
-    "react-confetti-explosion": "file:./react-confetti-explosion-1.5.1.tgz",
+    "react-confetti-explosion": "file:../react-confetti-explosion-1.5.1.tgz",
     "react-dom": "^18.x"
   },
   "devDependencies": {
