@@ -1,4 +1,4 @@
-import makeStyles from '@material-ui/styles/makeStyles';
+import { createUseStyles } from 'react-jss';
 import round from 'lodash/round';
 
 import { coinFlip, mapRange, rotate, rotationTransforms, shouldBeCircle } from './utils';
@@ -6,11 +6,12 @@ import { coinFlip, mapRange, rotate, rotationTransforms, shouldBeCircle } from '
 const ROTATION_SPEED_MIN = 200; // minimum possible duration of single particle full rotation
 const ROTATION_SPEED_MAX = 800; // maximum possible duration of single particle full rotation
 const CRAZY_PARTICLES_FREQUENCY = 0.1; // 0-1 frequency of crazy curvy unpredictable particles
-const CRAZY_PARTICLE_CRAZINESS = 0.3; // 0-1 how crazy these crazy particles are
+const CRAZY_PARTICLE_CRAZINESS = 0.25; // 0-1 how crazy these crazy particles are
 const BEZIER_MEDIAN = 0.5; // utility for mid-point bezier curves, to ensure smooth motion paths
 
 export interface IStyleClasses {
   container: string;
+  screen: string;
   particle: string;
 }
 
@@ -24,7 +25,7 @@ interface IParticlesProps {
   duration: number;
   particleSize: number;
   force: number;
-  height: number;
+  height: number | string;
   width: number;
 }
 
@@ -33,32 +34,33 @@ const rotationKeyframes = rotationTransforms.reduce((acc, xyz, i) => {
     ...acc,
     [`@keyframes rotation-${i}`]: {
       to: {
-        transform: `rotate3d(${xyz.join()}, 360deg)`
-      }
-    }
+        transform: `rotate3d(${xyz.join()}, 360deg)`,
+      },
+    },
   };
 }, {});
 
-const confettiKeyframes = (degrees: number[], height: number, width: number) => {
+const confettiKeyframes = (degrees: number[], height: number | string, width: number) => {
+  const y = typeof height === 'string' ? height : `${height}px`;
   const xLandingPoints = degrees.reduce((acc, degree, i) => {
     const landingPoint = mapRange(Math.abs(rotate(degree, 90) - 180), 0, 180, -width / 2, width / 2);
     return {
       ...acc,
       [`@keyframes x-axis-${i}`]: {
         to: {
-          transform: `translateX(${landingPoint}px)`
-        }
-      }
+          transform: `translateX(${landingPoint}px)`,
+        },
+      },
     };
   }, {});
 
   return {
     '@keyframes y-axis': {
       to: {
-        transform: `translateY(${height}px)`
-      }
+        transform: `translateY(${y})`,
+      },
     },
-    ...xLandingPoints
+    ...xLandingPoints,
   };
 };
 
@@ -95,52 +97,63 @@ const confettoStyle = (particle: IParticle, duration: number, force: number, siz
         '&:after': {
           backgroundColor: particle.color,
           animation: `$rotation-${rotationIndex} ${rotation}ms infinite linear`,
-          ...(isCircle ? { borderRadius: '50%' } : {})
-        }
-      }
-    }
+          ...(isCircle ? { borderRadius: '50%' } : {}),
+        },
+      },
+    },
   };
 };
 
-const useStyles = ({ particles, duration, height, width, force, particleSize }: IParticlesProps) =>
-  makeStyles(
-    () => {
-      const confettiStyles = particles.reduce(
-        (acc, particle, i) => ({ ...acc, ...confettoStyle(particle, duration, force, particleSize, i) }),
-        {}
-      );
-
-      return {
-        ...rotationKeyframes,
-        ...confettiKeyframes(
-          particles.map(particle => particle.degree),
-          height,
-          width
-        ),
-        container: {
-          width: 0,
-          height: 0,
-          position: 'relative',
-          overflow: 'visible',
-          zIndex: 1200
+const useStyles = ({ particles, duration, height, width, force, particleSize }: IParticlesProps) => {
+  const confettiStyles = particles.reduce(
+    (acc, particle, i) => ({
+      ...acc,
+      ...confettoStyle(particle, duration, force, particleSize, i),
+    }),
+    {}
+  );
+  return createUseStyles(
+    {
+      ...rotationKeyframes,
+      ...confettiKeyframes(
+        particles.map(particle => particle.degree),
+        height,
+        width
+      ),
+      container: {
+        width: 0,
+        height: 0,
+        position: 'relative',
+        overflow: 'visible',
+        display: 'inline-block',
+        zIndex: 1800,
+      },
+      screen: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        overflow: 'hidden',
+        pointerEvents: 'none',
+      },
+      particle: {
+        ...confettiStyles,
+        '& > div': {
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          '&:after': {
+            content: `''`,
+            display: 'block',
+            width: '100%',
+            height: '100%',
+          },
         },
-        particle: {
-          ...confettiStyles,
-          '& > div': {
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            '&:after': {
-              content: `''`,
-              display: 'block',
-              width: '100%',
-              height: '100%'
-            }
-          }
-        }
-      };
+      },
     },
     { name: 'ConfettiExplosion' }
   );
+};
 
 export default useStyles;
