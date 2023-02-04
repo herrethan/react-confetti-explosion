@@ -5,7 +5,7 @@ import { coinFlip, mapRange, rotate, rotationTransforms, shouldBeCircle } from '
 
 const ROTATION_SPEED_MIN = 200; // minimum possible duration of single particle full rotation
 const ROTATION_SPEED_MAX = 800; // maximum possible duration of single particle full rotation
-const CRAZY_PARTICLES_FREQUENCY = 0.1; // 0-1 frequency of crazy curvy unpredictable particles
+const CRAZY_PARTICLES_FREQUENCY = 0.05; // 0-1 frequency of crazy curvy unpredictable particles
 const CRAZY_PARTICLE_CRAZINESS = 0.25; // 0-1 how crazy these crazy particles are
 const BEZIER_MEDIAN = 0.5; // utility for mid-point bezier curves, to ensure smooth motion paths
 
