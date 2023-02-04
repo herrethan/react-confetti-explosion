@@ -124,9 +124,6 @@ const useStyles = ({ particles, duration, height, width, force, particleSize }: 
         width: 0,
         height: 0,
         position: 'relative',
-        overflow: 'visible',
-        display: 'inline-block',
-        zIndex: 1800,
       },
       screen: {
         position: 'fixed',

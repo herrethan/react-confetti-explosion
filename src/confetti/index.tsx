@@ -1,6 +1,6 @@
 import * as React from 'react';
 import range from 'lodash/range';
-
+import { createPortal } from 'react-dom';
 import useStyles, { IParticle, IStyleClasses } from './styles';
 
 const FORCE = 0.5; // 0-1 roughly the vertical force at which particles initially explode
@@ -58,7 +58,7 @@ function ConfettiExplosion({
 
   return (
     <div ref={originRef} className={classes.container}>
-      {origin && (
+      {origin && createPortal(
         <div className={classes.screen}>
           <div style={{ position: 'absolute', top: origin.top, left: origin.left }}>
             {particles.map((particle, i) => (
@@ -67,7 +67,8 @@ function ConfettiExplosion({
               </div>
             ))}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
