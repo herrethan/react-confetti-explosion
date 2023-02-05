@@ -11,7 +11,7 @@ const PARTICLE_COUNT = 100;
 const DURATION = 2200;
 const COLORS = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'];
 
-export interface IConfetti {
+export interface ConfettiProps {
   particleCount?: number;
   duration?: number;
   colors?: string[];
@@ -37,7 +37,7 @@ function ConfettiExplosion({
   force = FORCE,
   height = HEIGHT,
   width = WIDTH,
-}: IConfetti) {
+}: ConfettiProps) {
   const [origin, setOrigin] = React.useState<{ top: number; left: number }>();
   const particles = createParticles(particleCount, colors);
   const classes: IStyleClasses = useStyles({
@@ -58,18 +58,19 @@ function ConfettiExplosion({
 
   return (
     <div ref={originRef} className={classes.container}>
-      {origin && createPortal(
-        <div className={classes.screen}>
-          <div style={{ position: 'absolute', top: origin.top, left: origin.left }}>
-            {particles.map((particle, i) => (
-              <div id={`confetti-particle-${i}`} className={classes.particle} key={particle.degree}>
-                <div></div>
-              </div>
-            ))}
-          </div>
-        </div>,
-        document.body
-      )}
+      {origin &&
+        createPortal(
+          <div className={classes.screen}>
+            <div style={{ position: 'absolute', top: origin.top, left: origin.left }}>
+              {particles.map((particle, i) => (
+                <div id={`confetti-particle-${i}`} className={classes.particle} key={particle.degree}>
+                  <div></div>
+                </div>
+              ))}
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

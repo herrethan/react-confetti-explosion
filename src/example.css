@@ -19,13 +19,13 @@ body {
 }
 
 .button {
+  position: relative;
   padding: 20px 40px;
   color: white;
   background-color: #36634d;
   font-family: sans-serif;
   text-transform: uppercase;
   font-weight: bold;
-  text-align: center;
   border: 2px solid white;
   border-radius: 4px;
   box-shadow: 0 0 20px black;
@@ -34,6 +34,11 @@ body {
 
 .button:hover {
   background-color: #1f7a4e;
+}
+
+.button > div {
+  margin-inline: auto;
+  top: -20px;
 }
 
 @media only screen and (min-width: 600px) {

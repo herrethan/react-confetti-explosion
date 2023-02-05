@@ -24,14 +24,14 @@ function App() {
 ## Optional Props
 
 | Name          | Type       | Default                                                       | Description                                                                                                                                   |
-| ------------- | ---------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------- | ---------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | particleCount | `number`   | 150                                                           | Total number of particles used. Generally try to stay under 400 for optimal performance.                                                      |
 | particleSize  | `number`   | 12                                                            | Size of particles in pixels. This means width for squares, diameter for circles. Note there is also a bit of randomness added to these.       |
 | duration      | `number`   | 3500                                                          | Duration of explosion in ms. This is the time it takes particles to travel from explosion point to the floor, as defined by `height`.         |
 | colors        | `string[]` | [<br>'#FFC700',<br>'#FF0000',<br>'#2E3191',<br>'#41BBC7'<br>] | An array of any css-readable colors, which are evenly distributed across the number of total particles.                                       |
 | force         | `number`   | 0.5                                                           | Between 0-1, roughly the vertical force at which particles initially explode. Straying too far away from 0.5 may start looking...interesting. |
-| height        | `number | string`   | `150vh`                                                           | Pixel distance the particles will vertically spread from initial explosion point.                                                             |
-| width         | `number`   | 1600                                                          | Pixel distance the particles will horizontally spread from initial explosion point.                                                           |  |
+| height        | `number    | string`                                                       | `150vh`                                                                                                                                       | Pixel distance the particles will vertically spread from initial explosion point. |
+| width         | `number`   | 1600                                                          | Pixel distance the particles will horizontally spread from initial explosion point.                                                           |                                                                                   |
 
 Although the above properties of the explosion is controlled, mounting/unmounting is entirely left to the consumer.
 
@@ -40,6 +40,7 @@ Although the above properties of the explosion is controlled, mounting/unmountin
 - The `height` is defaulted to `150vh` in an attempt to guarantee particles land past the bottom of the viewport, which may not be ideal in some scenarios.
 - If using a string for relative `height` (`vh` or `%` for example), the relative height changes between mobile/desktop screens, which means different looking explosions.
 - If your `height` is too small, particles may visibly land on the floor instead of disappearing off-screen.
+- The `ConfettiExplosion` is appended to the document body via `ReactDOM.createPortal()` to ensure it is positioned correctly and layered above all page content. Make sure to remember to unmount it when your explosion is finished!
 
 To keep the library as little as possible much of the physics have been estimated, cheapened, and downright mutilated. There are certainly prop combinations that will not look realistic, due to the limitations of CSS animations. But there should be enough options to fit most needs.
 
