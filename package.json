@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "author": "Ethan Herr",
   "description": "A lightweight css-animation based confetti exploder for React",
-  "private": true,
+  "private": false,
   "main": "./lib/index.js",
   "module": "./lib/index.esm.js",
   "types": "./lib/index.d.ts",
