@@ -11,7 +11,7 @@ const PARTICLE_COUNT = 100;
 const DURATION = 2200;
 const COLORS = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'];
 
-export interface ConfettiProps {
+export interface ConfettiProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'ref'> {
   particleCount?: number;
   duration?: number;
   colors?: string[];
@@ -37,6 +37,7 @@ function ConfettiExplosion({
   force = FORCE,
   height = HEIGHT,
   width = WIDTH,
+  ...props
 }: ConfettiProps) {
   const [origin, setOrigin] = React.useState<{ top: number; left: number }>();
   const particles = createParticles(particleCount, colors);
@@ -57,7 +58,7 @@ function ConfettiExplosion({
   }, []);
 
   return (
-    <div ref={originRef} className={classes.container}>
+    <div ref={originRef} className={classes.container} {...props}>
       {origin &&
         createPortal(
           <div className={classes.screen}>

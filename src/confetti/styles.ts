@@ -149,7 +149,7 @@ const useStyles = ({ particles, duration, height, width, force, particleSize }: 
         },
       },
     },
-    { name: 'ConfettiExplosion' }
+    { name: 'confetti-explosion' }
   );
 };
 
