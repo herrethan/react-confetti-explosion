@@ -30,7 +30,7 @@ function App() {
 | duration      | `number`   | 2200                                                          | Duration of explosion in ms. This is the time it takes particles to travel from explosion point to the floor, as defined by `height`.         |
 | colors        | `string[]` | [<br>'#FFC700',<br>'#FF0000',<br>'#2E3191',<br>'#41BBC7'<br>] | An array of any css-readable colors, which are evenly distributed across the number of total particles.                                       |
 | force         | `number`   | 0.5                                                           | Between 0-1, roughly the vertical force at which particles initially explode. Straying too far away from 0.5 may start looking...interesting. |
-| height        | `number` `string[]`   | '150vh'                                                           | Pixel distance the particles will vertically spread from initial explosion point.                                                             |
+| height        | `number` `string`   | '150vh'                                                           | Pixel distance the particles will vertically spread from initial explosion point.                                                             |
 | width         | `number`   | 1000                                                          | Pixel distance the particles will horizontally spread from initial explosion point.                                                           |  |
 
 
