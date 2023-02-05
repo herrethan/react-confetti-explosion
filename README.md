@@ -21,6 +21,20 @@ function App() {
 }
 ```
 
+## Updates in v2.x
+
+- Remove dependency on `@material-ui/styles` in favor of `react-jss`
+- Update peer dependencies to react 18.x
+- Props `floorWidth` `floorHeight` -> `width` `height`
+- Export `ConfettiProps` type
+- Extend ConfettiProps with HTMLDivElement attributes (except `ref`)
+- Support number or string for `height`, defaulting to `150vh`
+- Fix rotation in Safari (thanks to [roydigerhund](https://github.com/roydigerhund))
+- Use Portal for dom placement
+- Use create-react-app for dev and example app
+- Use rollup for package bundling (down to 31kb, woot!)
+
+
 ## Optional Props
 
 | Name          | Type       | Default                                                       | Description                                                                                                                                   |
