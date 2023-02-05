@@ -33,7 +33,10 @@ const rotationKeyframes = rotationTransforms.reduce((acc, xyz, i) => {
   return {
     ...acc,
     [`@keyframes rotation-${i}`]: {
-      to: {
+      '50%': {
+        transform: `rotate3d(${xyz.map(v => v / 2).join()}, 180deg)`,
+      },
+      '100%': {
         transform: `rotate3d(${xyz.join()}, 360deg)`,
       },
     },
@@ -65,7 +68,7 @@ const confettiKeyframes = (degrees: number[], height: number | string, width: nu
 };
 
 const confettoStyle = (particle: IParticle, duration: number, force: number, size: number, i: number) => {
-  const rotation = Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN;
+  const rotation = Math.round(Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN);
   const rotationIndex = Math.round(Math.random() * (rotationTransforms.length - 1));
   const durationChaos = duration - Math.round(Math.random() * 1000);
   const shouldBeCrazy = Math.random() < CRAZY_PARTICLES_FREQUENCY;
