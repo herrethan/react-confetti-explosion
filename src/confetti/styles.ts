@@ -136,6 +136,7 @@ const useStyles = ({ particles, duration, height, width, force, particleSize }: 
         bottom: 0,
         overflow: 'hidden',
         pointerEvents: 'none',
+        zIndex: '999',
       },
       particle: {
         ...confettiStyles,
