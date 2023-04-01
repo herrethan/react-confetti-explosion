@@ -5,7 +5,7 @@ import useStyles, { IParticle, IStyleClasses } from './styles';
 
 const FORCE = 0.5; // 0-1 roughly the vertical force at which particles initially explode
 const SIZE = 12; // max height for particle rectangles, diameter for particle circles
-const HEIGHT = '150vh'; // distance particles will fall from initial explosion point
+const HEIGHT = '120vh'; // distance particles will fall from initial explosion point
 const WIDTH = 1000; // horizontal spread of particles in pixels
 const PARTICLE_COUNT = 100;
 const DURATION = 2200;
@@ -19,6 +19,7 @@ export interface ConfettiProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   force?: number;
   height?: number | string;
   width?: number;
+  onComplete?: () => void;
 }
 
 const createParticles = (count: number, colors: string[]): IParticle[] => {
@@ -37,6 +38,7 @@ function ConfettiExplosion({
   force = FORCE,
   height = HEIGHT,
   width = WIDTH,
+  onComplete,
   ...props
 }: ConfettiProps) {
   const [origin, setOrigin] = React.useState<{ top: number; left: number }>();
@@ -57,6 +59,13 @@ function ConfettiExplosion({
     }
   }, []);
 
+  React.useEffect(() => {
+    if (typeof onComplete === 'function') {
+      const timeout = setTimeout(onComplete, duration);
+      return () => clearTimeout(timeout);
+    }
+  }, [duration, onComplete]);
+
   return (
     <div ref={originRef} className={classes.container} {...props}>
       {origin &&
@@ -64,7 +73,11 @@ function ConfettiExplosion({
           <div className={classes.screen}>
             <div style={{ position: 'absolute', top: origin.top, left: origin.left }}>
               {particles.map((particle, i) => (
-                <div id={`confetti-particle-${i}`} className={classes.particle} key={particle.degree}>
+                <div
+                  id={`confetti-particle-${i}`}
+                  className={classes.particle}
+                  key={particle.degree}
+                >
                   <div></div>
                 </div>
               ))}
