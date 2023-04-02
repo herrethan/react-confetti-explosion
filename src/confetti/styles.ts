@@ -13,6 +13,7 @@ export interface IStyleClasses {
   container: string;
   screen: string;
   particle: string;
+  zIndex?: string;
 }
 
 export interface IParticle {
@@ -27,6 +28,7 @@ interface IParticlesProps {
   force: number;
   height: number | string;
   width: number;
+  zIndex?: number;
 }
 
 const rotationKeyframes = rotationTransforms.reduce((acc, xyz, i) => {
@@ -107,7 +109,7 @@ const confettoStyle = (particle: IParticle, duration: number, force: number, siz
   };
 };
 
-const useStyles = ({ particles, duration, height, width, force, particleSize }: IParticlesProps) => {
+const useStyles = ({ particles, duration, height, width, force, particleSize, zIndex }: IParticlesProps) => {
   const confettiStyles = particles.reduce(
     (acc, particle, i) => ({
       ...acc,
@@ -136,7 +138,7 @@ const useStyles = ({ particles, duration, height, width, force, particleSize }: 
         bottom: 0,
         overflow: 'hidden',
         pointerEvents: 'none',
-        zIndex: '999',
+        zIndex: zIndex,
       },
       particle: {
         ...confettiStyles,
