@@ -12,6 +12,7 @@ const Sample = () => {
     </div>
   );
 };
+
 test('confetti explodes', async () => {
   render(<Sample />);
   const explode = screen.getByText(/explode/i);
@@ -45,4 +46,17 @@ test('onComplete is called at end of duration', async () => {
   expect(onComplete).toHaveBeenCalledTimes(1);
   await act(async () => new Promise(resolve => setTimeout(resolve, 600)));
   expect(onComplete).toHaveBeenCalledTimes(1);
+});
+
+const ZIndexSample = () => {
+  return <ConfettiExplosion data-testid="confetti" zIndex={321} />;
+};
+
+test('confetti inherits z-index', async () => {
+  const { baseElement } = render(<ZIndexSample />);
+  // sorry eslint, this is the best way
+  // eslint-disable-next-line testing-library/no-node-access
+  const portal = baseElement.querySelector('[class^="confetti-explosion-screen"]');
+  expect(portal).toBeInTheDocument();
+  expect(portal).toHaveStyle("z-index: 321");
 });
