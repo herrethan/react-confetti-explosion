@@ -19,6 +19,7 @@ export interface ConfettiProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   force?: number;
   height?: number | string;
   width?: number;
+  zIndex?: number;
   onComplete?: () => void;
 }
 
@@ -38,6 +39,7 @@ function ConfettiExplosion({
   force = FORCE,
   height = HEIGHT,
   width = WIDTH,
+  zIndex,
   onComplete,
   ...props
 }: ConfettiProps) {
@@ -70,7 +72,7 @@ function ConfettiExplosion({
     <div ref={originRef} className={classes.container} {...props}>
       {origin &&
         createPortal(
-          <div className={classes.screen}>
+          <div className={classes.screen} {...zIndex ? ({ style: { zIndex }}) : null}>
             <div style={{ position: 'absolute', top: origin.top, left: origin.left }}>
               {particles.map((particle, i) => (
                 <div
