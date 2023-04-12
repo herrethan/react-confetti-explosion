@@ -42,11 +42,12 @@ function App() {
 | particleCount | `number`   | 100                                                           | Total number of particles used. Generally try to stay under 400 for optimal performance.                                                      |
 | particleSize  | `number`   | 12                                                            | Size of particles in pixels. This means width for squares, diameter for circles. Note there is also a bit of randomness added to these.       |
 | duration      | `number`   | 2200                                                          | Duration of explosion in ms. This is the time it takes particles to travel from explosion point to the floor, as defined by `height`.         |
-| onComplete         | `function`   | undefined                                              | Function that is called at end of `duration` |
+| onComplete    | `function` | undefined                                                     | Function that is called at end of `duration`                                                                                                  |
+| zIndex        | `number`   | undefined                                                     | zIndex that will be applied to the explosion, in case higher Portal stacking order is required.                                                |
 | colors        | `string[]` | [<br>'#FFC700',<br>'#FF0000',<br>'#2E3191',<br>'#41BBC7'<br>] | An array of any css-readable colors, which are evenly distributed across the number of total particles.                                       |
 | force         | `number`   | 0.5                                                           | Between 0-1, roughly the vertical force at which particles initially explode. Straying too far away from 0.5 may start looking...interesting. |
-| height        | `number` `string`   | '120vh'                                                           | Pixel distance the particles will vertically spread from initial explosion point.                                                |
-| width         | `number`   | 1000                                                          | Pixel distance the particles will horizontally spread from initial explosion point.                                                           |  |
+| height        | `number` `string`   | '120vh'                                              | Pixel distance the particles will vertically spread from initial explosion point.                                                             |
+| width         | `number`   | 1000                                                          | Pixel distance the particles will horizontally spread from initial explosion point.                                                           |
 
 Although the above properties of the explosion is controlled, mounting/unmounting is entirely left to the consumer.
 
