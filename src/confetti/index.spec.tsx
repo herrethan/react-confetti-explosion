@@ -58,5 +58,5 @@ test('confetti inherits z-index', async () => {
   // eslint-disable-next-line testing-library/no-node-access
   const portal = baseElement.querySelector('[class^="confetti-explosion-screen"]');
   expect(portal).toBeInTheDocument();
-  expect(portal).toHaveStyle("z-index: 321");
+  expect(portal).toHaveStyle('z-index: 321');
 });

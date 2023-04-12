@@ -72,7 +72,7 @@ function ConfettiExplosion({
     <div ref={originRef} className={classes.container} {...props}>
       {origin &&
         createPortal(
-          <div className={classes.screen} {...zIndex ? ({ style: { zIndex }}) : null}>
+          <div className={classes.screen} {...(zIndex ? { style: { zIndex } } : null)}>
             <div style={{ position: 'absolute', top: origin.top, left: origin.left }}>
               {particles.map((particle, i) => (
                 <div
