@@ -1,6 +1,6 @@
 {
-  "name": "react-confetti-explosion",
-  "version": "2.1.2",
+  "name": "react-confetti-image-explosion",
+  "version": "0.0.1",
   "author": "Ethan Herr <herrethan@gmail.com>",
   "description": "A lightweight css-animation based confetti exploder for React",
   "license": "MIT",
