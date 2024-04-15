@@ -1,7 +1,7 @@
 import * as React from 'react';
 import range from 'lodash/range';
 import { createPortal } from 'react-dom';
-import useStyles, { IParticle, IStyleClasses } from './styles';
+import useStyles, {IParticle, IStyleClasses } from './styles';
 
 const FORCE = 0.5; // 0-1 roughly the vertical force at which particles initially explode
 const SIZE = 12; // max height for particle rectangles, diameter for particle circles
@@ -9,17 +9,18 @@ const HEIGHT = '120vh'; // distance particles will fall from initial explosion p
 const WIDTH = 1000; // horizontal spread of particles in pixels
 const PARTICLE_COUNT = 100;
 const DURATION = 2200;
-const COLORS = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'];
 
 export interface ConfettiProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'ref'> {
   particleCount?: number;
   duration?: number;
   colors?: string[];
+  images?: string[];
   particleSize?: number;
   force?: number;
   height?: number | string;
   width?: number;
   zIndex?: number;
+  repeats?: number;
   onComplete?: () => void;
 }
 
@@ -27,6 +28,16 @@ const createParticles = (count: number, colors: string[]): IParticle[] => {
   const increment = 360 / count;
   return range(count).map(index => ({
     color: colors[index % colors.length],
+    image: '',
+    degree: increment * index,
+  }));
+};
+
+const createImageParticles = (count: number, images: string[]): IParticle[] => {
+  const increment = 360 / count;
+  return range(count).map(index => ({
+    image: images[index % images.length],
+    color: '',
     degree: increment * index,
   }));
 };
@@ -34,20 +45,24 @@ const createParticles = (count: number, colors: string[]): IParticle[] => {
 function ConfettiExplosion({
   particleCount = PARTICLE_COUNT,
   duration = DURATION,
-  colors = COLORS,
+  colors = [],
+  images = [],
   particleSize = SIZE,
   force = FORCE,
   height = HEIGHT,
   width = WIDTH,
   zIndex,
+  repeats = 1,
   onComplete,
   ...props
 }: ConfettiProps) {
   const [origin, setOrigin] = React.useState<{ top: number; left: number }>();
   const particles = createParticles(particleCount, colors);
+  const imageParticles = createImageParticles(particleCount, images);
   const classes: IStyleClasses = useStyles({
-    particles,
+    particles: images.length ? imageParticles : particles,
     duration,
+    repeats,
     particleSize,
     force,
     width,

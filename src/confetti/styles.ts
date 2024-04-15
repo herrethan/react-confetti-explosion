@@ -17,12 +17,14 @@ export interface IStyleClasses {
 
 export interface IParticle {
   color: string; // color of particle
+  image: string; // image of particle 
   degree: number; // vector direction, between 0-360 (0 being straight up ↑)
 }
 
 interface IParticlesProps {
-  particles: IParticle[];
+  particles: IParticle[]; // particles to explode
   duration: number;
+  repeats: number;
   particleSize: number;
   force: number;
   height: number | string;
@@ -67,12 +69,13 @@ const confettiKeyframes = (degrees: number[], height: number | string, width: nu
   };
 };
 
-const confettoStyle = (particle: IParticle, duration: number, force: number, size: number, i: number) => {
+const confettoStyle = (particle: IParticle, duration: number, repeats: number, force: number, size: number, i: number) => {
   const rotation = Math.round(Math.random() * (ROTATION_SPEED_MAX - ROTATION_SPEED_MIN) + ROTATION_SPEED_MIN);
   const rotationIndex = Math.round(Math.random() * (rotationTransforms.length - 1));
   const durationChaos = duration - Math.round(Math.random() * 1000);
   const shouldBeCrazy = Math.random() < CRAZY_PARTICLES_FREQUENCY;
   const isCircle = shouldBeCircle(rotationIndex);
+  const isImage = particle.image !== undefined;
 
   // x-axis disturbance, roughly the distance the particle will initially deviate from its target
   const x1 = shouldBeCrazy ? round(Math.random() * CRAZY_PARTICLE_CRAZINESS, 2) : 0;
@@ -94,11 +97,14 @@ const confettoStyle = (particle: IParticle, duration: number, force: number, siz
     [`&#confetti-particle-${i}`]: {
       animation: `$x-axis-${i} ${durationChaos}ms forwards cubic-bezier(${x1}, ${x2}, ${x3}, ${x4})`,
       '& > div': {
-        width: isCircle ? size : Math.round(Math.random() * 4) + size / 2,
-        height: isCircle ? size : Math.round(Math.random() * 2) + size,
+        width: isCircle || isImage ? size : Math.round(Math.random() * 4) + size / 2,
+        height: isCircle || isImage ? size : Math.round(Math.random() * 2) + size,
         animation: `$y-axis ${durationChaos}ms forwards cubic-bezier(${y1}, ${y2}, ${y3}, ${y4})`,
+        animationIterationCount: repeats,
         '&:after': {
-          backgroundColor: particle.color,
+          backgroundColor: particle.color ? particle.color : 'unset',
+          backgroundImage: particle.image ? `url(${particle.image})` : 'unset',
+          backgroundSize: isImage ? "cover" : "unset",
           animation: `$rotation-${rotationIndex} ${rotation}ms infinite linear`,
           ...(isCircle ? { borderRadius: '50%' } : {}),
         },
@@ -107,11 +113,11 @@ const confettoStyle = (particle: IParticle, duration: number, force: number, siz
   };
 };
 
-const useStyles = ({ particles, duration, height, width, force, particleSize }: IParticlesProps) => {
+const useStyles = ({ particles, duration, repeats, height, width, force, particleSize }: IParticlesProps) => {
   const confettiStyles = particles.reduce(
     (acc, particle, i) => ({
       ...acc,
-      ...confettoStyle(particle, duration, force, particleSize, i),
+      ...confettoStyle(particle, duration, repeats, force, particleSize, i),
     }),
     {}
   );
