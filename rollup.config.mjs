@@ -5,7 +5,7 @@ import json from '@rollup/plugin-json';
 import typescript from 'rollup-plugin-typescript2';
 import packageJson from './package.json' assert { type: 'json' };
 
-export default {
+const config = {
   input: 'src/confetti/index.tsx',
   output: [
     {
@@ -32,3 +32,5 @@ export default {
     json(),
   ],
 };
+
+export default config;

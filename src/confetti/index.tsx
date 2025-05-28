@@ -12,33 +12,19 @@ const DURATION = 2200;
 const COLORS = ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'];
 
 export interface ConfettiProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'ref'> {
-  /**
-    * @default 100
-    */
+  /* @default 100 */
   particleCount?: number;
-  /**
-    * @default 2200
-    */
+  /* @default 2200 */
   duration?: number;
-  /**
-    * @default ['#FFC700', '#FF0000', '#2E3191', '#41BBC7']
-    */
+  /* @default ['#FFC700', '#FF0000', '#2E3191', '#41BBC7'] */
   colors?: string[];
-  /**
-    * @default 12
-    */
+  /* @default 12 */
   particleSize?: number;
-  /**
-    * @default 0.5
-    */
+  /* @default 0.5 */
   force?: number;
-  /**
-    * @default "120vh"
-    */
+  /* @default "120vh" */
   height?: number | string;
-  /**
-    * @default 1000
-    */
+  /* @default 1000 */
   width?: number;
   zIndex?: number;
   onComplete?: () => void;
