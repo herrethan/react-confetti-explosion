@@ -14,6 +14,6 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "dist"
   },
-  "include": ["src", "index.tsx", "setupTests.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "**/*.spec.tsx"]
 }

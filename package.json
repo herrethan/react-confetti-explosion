@@ -16,6 +16,7 @@
     "lint": "eslint src --ext .ts,.tsx",
     "prepare": "pnpm run build",
     "pack": "pnpm run build && pnpm pack",
+    "publish": "pnpm run build && npm publish",
     "dev": "vite"
   },
   "peerDependencies": {
