@@ -1,6 +1,6 @@
 {
   "name": "react-confetti-explosion",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "author": "Ethan Herr",
   "description": "A lightweight css-animation based confetti exploder for React",
   "main": "dist/index.js",
@@ -66,6 +66,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/herrethan/react-confetti-explosion"
+    "url": "git+https://github.com/herrethan/react-confetti-explosion.git"
   }
 }
