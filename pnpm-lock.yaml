@@ -7,16 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@testing-library/dom':
-        specifier: ^10.4.0
-        version: 10.4.0
-      jsdom:
-        specifier: ^26.1.0
-        version: 26.1.0
-      vitest:
-        specifier: ^3.1.4
-        version: 3.1.4(@types/node@22.15.23)(jsdom@26.1.0)(terser@5.40.0)
     devDependencies:
       '@eslint/js':
         specifier: ^9.28.0
@@ -30,6 +20,9 @@ importers:
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@2.79.2)
+      '@testing-library/dom':
+        specifier: ^10.4.0
+        version: 10.4.0
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.6.3
@@ -63,6 +56,9 @@ importers:
       globals:
         specifier: ^16.2.0
         version: 16.2.0
+      jsdom:
+        specifier: ^26.1.0
+        version: 26.1.0
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -96,6 +92,9 @@ importers:
       vite:
         specifier: ^5.0.0
         version: 5.4.19(@types/node@22.15.23)(terser@5.40.0)
+      vitest:
+        specifier: ^3.1.4
+        version: 3.1.4(@types/node@22.15.23)(jsdom@26.1.0)(terser@5.40.0)
 
 packages:
 

@@ -72,7 +72,7 @@ To keep the library as little as possible much of the physics have been estimate
 
 ## Examples
 
-See src/example.tsx as an example case, which can be run locally with `pnpm dev`.
+See index.tsx as an example case, which can be run locally with `pnpm dev`.
 
 ### Large explosion
 
