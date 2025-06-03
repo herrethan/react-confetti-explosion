@@ -1,6 +1,6 @@
 {
   "name": "react-confetti-explosion",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "author": "Ethan Herr",
   "description": "A lightweight css-animation based confetti exploder for React",
   "main": "dist/index.js",
